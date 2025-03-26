@@ -1,5 +1,8 @@
 # NYCU-VRDL-HW1
 
+Name: 李杰穎
+Student ID: 110550088
+
 ## Introduction
 
 This homework addresses the challenging task of fine-grained image classification across 100 diverse classes, encompassing insects, plants, and birds. The dataset presents several key challenges: (1) complex scenes with mixed foreground and background elements, (2) images containing multiple objects of interest, and (3) significant intra-class variation, such as classes containing both butterflies and their caterpillar forms. The dataset comprises 21,024 images for training and validation, with an additional 2,344 test images for evaluation.
