@@ -2,6 +2,7 @@ data/*
 !data/.gitkeep
 *.tar.gz
 output
+evaluation_results
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

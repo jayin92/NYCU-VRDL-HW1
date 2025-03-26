@@ -137,17 +137,16 @@ def create_test_transforms(image_size):
     
     # Different scales
     scales = [0.9, 1.0, 1.1, 1.2]
-    # scales = [1.0]
-    # for scale in scales:
-    #     scaled_size = int(image_size * scale)
-    #     transform = transforms.Compose([
-    #         transforms.Resize(int(scaled_size * 1.125)),
-    #         transforms.CenterCrop(scaled_size),
-    #         transforms.Resize(image_size),  # Resize back to original size
-    #         transforms.ToTensor(),
-    #         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    #     ])
-    #     test_transforms.append(transform)
+    for scale in scales:
+        scaled_size = int(image_size * scale)
+        transform = transforms.Compose([
+            transforms.Resize(int(scaled_size * 1.125)),
+            transforms.CenterCrop(scaled_size),
+            transforms.Resize(image_size),  # Resize back to original size
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        ])
+        test_transforms.append(transform)
     
     # # Horizontal flip
     flip_transform = transforms.Compose([
@@ -160,16 +159,16 @@ def create_test_transforms(image_size):
     test_transforms.append(flip_transform)
     
     # # Different crops
-    # crop_positions = ['tl', 'tr', 'bl', 'br', 'c']  # top-left, top-right, bottom-left, bottom-right, center
-    # for pos in crop_positions:
-    #     transform = transforms.Compose([
-    #         transforms.Resize(int(image_size * 1.125)),  # Resize to larger size for cropping
-    #         # Custom cropping function instead of center crop
-    #         lambda img: crop_image(img, image_size, position=pos),
-    #         transforms.ToTensor(),
-    #         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    #     ])
-    #     test_transforms.append(transform)
+    crop_positions = ['tl', 'tr', 'bl', 'br', 'c']  # top-left, top-right, bottom-left, bottom-right, center
+    for pos in crop_positions:
+        transform = transforms.Compose([
+            transforms.Resize(int(image_size * 1.125)),  # Resize to larger size for cropping
+            # Custom cropping function instead of center crop
+            lambda img: crop_image(img, image_size, position=pos),
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        ])
+        test_transforms.append(transform)
     
     return test_transforms
 
@@ -315,7 +314,7 @@ def main():
     else:
         # For labeled test data (e.g., validation)
         print(f"Using labeled test data from: {test_directory}")
-        test_dataset = ImageDataset(root_dir=test_directory, split='test', transform=None)
+        test_dataset = ImageDataset(root_dir=test_directory, split='val', transform=None)
         
         # Get image IDs from the dataset
         image_ids = [osp.basename(path) for path in test_dataset.images]
